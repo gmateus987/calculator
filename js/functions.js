@@ -99,7 +99,7 @@ function parentheses() {
     let secondP = ")";
     let currentValue = inputNumber.value;
     let verifyFP = /\(/g;
-    let verifyNumber = /(\()(-)?([0-9]{1,}$)/g;
+    let verifyNumber = /(\()(\-)?([0-9]{1,}(\-?\+?))?([0-9]{1,}$)/g;
     let verifySP = /\)$/g;
 
     if (verifyFP.test(currentValue) == false){
