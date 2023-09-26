@@ -10,6 +10,8 @@ let seven = document.getElementById('seven');
 let eight = document.getElementById('eight');
 let nine = document.getElementById('nine');
 
+    let counterFP = 0;
+    let counterSP = 0;
 
 // FUNÇÃO DOS NUMEROS
 function functionRepeat(number) {
@@ -31,7 +33,7 @@ const numberArray = [
     nine
 ];
 
-for(let i in numberArray) {
+for (let i in numberArray) {
     functionRepeat(numberArray[i]);
 };
 
@@ -39,6 +41,8 @@ for(let i in numberArray) {
 // BOTÃO CLEAR
 function clearFunction() {
     inputNumber.value = "";
+    counterFP = 0;
+    counterSP = 0;
 };
 let clear = document.getElementById('clear');
 clear.addEventListener('click', clearFunction);
@@ -48,11 +52,11 @@ clear.addEventListener('click', clearFunction);
 // BOTÃO APAGAR 
 function eraseLetter() {
     let newValue = inputNumber.value;
-    
-    if(newValue.length > 0) {
+
+    if (newValue.length > 0) {
         inputNumber.value = newValue.slice(0, -1);
     }
-    
+
 };
 let erase = document.getElementById('eraser');
 erase.addEventListener('click', eraseLetter);
@@ -63,7 +67,7 @@ function negativeNumber() {
     let currentValue = inputNumber.value;
     let negative = "(-";
     let newValue = negative + currentValue;
-    if(inputNumber.value.includes(negative) == true){
+    if (inputNumber.value.includes(negative) == true) {
         inputNumber.value = currentValue.replace("(-", "");
     } else {
         inputNumber.value = newValue;
@@ -79,10 +83,9 @@ function comma() {
     let comma = ",";
     let newValue = currentValue + comma;
     let zeroValue = "0" + comma;
-    if (inputNumber.value.includes(",") == false && inputNumber.value != "")
-     {
+    if (inputNumber.value.includes(",") == false && inputNumber.value != "") {
         inputNumber.value = newValue;
-    } else if (inputNumber.value.includes(",") == false && inputNumber.value.includes("") == true){
+    } else if (inputNumber.value.includes(",") == false && inputNumber.value.includes("") == true) {
         inputNumber.value = zeroValue;
     }
 };
@@ -91,8 +94,33 @@ let commaBttn = document.getElementById('comma');
 commaBttn.addEventListener('click', comma);
 
 // PARENTESES
-function verifyNumber(string){
-    for( let i = 0; i < string.length; i++){
+function parentheses() {
+    let firstP = "(";
+    let secondP = ")";
+    let currentValue = inputNumber.value;
+    let verifyFP = /\(/g;
+    let verifyNumber = /(\()(-)?([0-9]{1,}$)/g;
+    let verifySP = /\)$/g;
+
+    if (verifyFP.test(currentValue) == false){
+        inputNumber.value += firstP;
+    // } else if (verifyNumber.test(currentValue) == false){
+    //     inputNumber.value += firstP;
+    } else if (verifyNumber.test(currentValue) == true){
+        inputNumber.value += secondP;
+    } else if (verifySP.test(currentValue) == true) {
+        inputNumber.value += "⨉" + firstP;
+    };
+
+}
+
+let parenthesesBttn = document.getElementById('parentheses');
+parenthesesBttn.addEventListener('click', parentheses)
+
+
+// OPERADORES PRINCIPAIS
+function verifyLastNumber(string) {
+    for (let i = 0; i < string.length; i++) {
         const character = string[i];
         if (!isNaN(character)) {
             return true;
@@ -102,38 +130,13 @@ function verifyNumber(string){
 };
 
 
-function parentheses(){
-    let firstP = "(";
-    let secondP = ")";
-    let splitInput = inputNumber.value.split("");
-
-    for(let i = 0; i < splitInput; i++){
-        
-    }
-    // if(inputNumber.value.includes("(") == false){
-    //         inputNumber.value = firstP
-    // } else if (inputNumber.value.includes("(") == true && verifyNumber(inputNumber.value) == true){
-    //     inputNumber.value += secondP
-    // } else {
-    //     inputNumber.value += firstP
-    // }
-
-
-}
-
-let parenthesesBttn = document.getElementById('parentheses');
-parenthesesBttn.addEventListener('click', parentheses)
-
-
-// OPERADORES PRINCIPAIS
-
 // MAIS
 
-function numbersSum(){
+function numbersSum() {
     let plus = "+";
     let currentValue = inputNumber.value;
     let lastLetter = currentValue.charAt(currentValue.length - 1);
-    if(lastLetter != "+" && verifyNumber(currentValue) == true) {
+    if (lastLetter != "+" && verifyLastNumber(currentValue) == true) {
         inputNumber.value += plus;
     };
 };
@@ -143,11 +146,11 @@ plusSignal.addEventListener('click', numbersSum);
 
 // MENOS
 
-function numbersSub(){
+function numbersSub() {
     let minus = "-";
     let currentValue = inputNumber.value;
     let lastLetter = currentValue.charAt(currentValue.length - 1);
-    if(lastLetter != "-" && verifyNumber(currentValue) == true) {
+    if (lastLetter != "-" && verifyLastNumber(currentValue) == true) {
         inputNumber.value += minus;
     };
 };
@@ -161,7 +164,7 @@ function numbersMultiply() {
     let multiplication = "⨉";
     let currentValue = inputNumber.value;
     let lastLetter = currentValue.charAt(currentValue.length - 1);
-    if(lastLetter != "⨉" && verifyNumber(currentValue) == true) {
+    if (lastLetter != "⨉" && verifyLastNumber(currentValue) == true) {
         inputNumber.value += multiplication;
     };
 };
@@ -171,11 +174,11 @@ multiplySignal.addEventListener('click', numbersMultiply);
 
 // DIVISÃO
 
-function numbersDiv(){
+function numbersDiv() {
     let division = "÷"
     let currentValue = inputNumber.value;
     let lastLetter = currentValue.charAt(currentValue.length - 1);
-    if(lastLetter != "÷" && verifyNumber(currentValue) == true) {
+    if (lastLetter != "÷" && verifyLastNumber(currentValue) == true) {
         inputNumber.value += division;
     };
 };
@@ -184,12 +187,12 @@ let divSignal = document.getElementById('division');
 divSignal.addEventListener('click', numbersDiv);
 
 // RESTO 
-function numbersPercentage(){
+function numbersPercentage() {
     let percentage = "%"
     let currentValue = inputNumber.value;
     let lastLetter = currentValue.charAt(currentValue.length - 1);
-    if(lastLetter != "%" && verifyNumber(currentValue) == true){
-        if(lastLetter != "⨉"){
+    if (lastLetter != "%" && verifyLastNumber(currentValue) == true) {
+        if (lastLetter != "⨉") {
             inputNumber.value += percentage;
             inputNumber.value += "⨉";
         }
