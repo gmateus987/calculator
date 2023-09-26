@@ -59,12 +59,14 @@ body {
     border-style: none;
 }
 
-.pre-result {
+.operation-preview {
+    display: flex;
     background: transparent;
     /* border: 1px solid red; */
     height: 50px;
-    width: 50%;
-    text-align: end;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
     font-size: 35px;
     color: dimgray;
     border-style: none;

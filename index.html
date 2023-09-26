@@ -12,10 +12,10 @@
     <div class="calculator-container">
         <div class="input-container">
             <div class="operation-input">
-                <input class="input-number" type="text" id="calculation" readonly>
+                <input class="input-number" onchange="resultPreview()" type="text" id="calculation">
             </div>
-            <div class="operation-result">
-                <input class="pre-result" type="number" id="result-preview" readonly>
+            <div class="operation-preview">
+                
             </div>
         </div>
         <div class="calc-functions">
@@ -129,6 +129,7 @@
     </div>
     
     <script src="./js/functions.js"></script>
+    <script src="./js/calculations.js"></script>
 </body>
 
 </html>
