@@ -2,9 +2,6 @@ let equal = document.getElementById('equal');
 let myInput = document.getElementById('calculation');
 let preResult = document.getElementById('operation-preview');
 
-function resultPreview() {
-    alert("Funcionou")
-};
 
 let result = myInput.value;
 
@@ -21,8 +18,8 @@ function calculate() {
         newValue = newValue.replace(/(^\-)/g, "")
         if (newValue.includes("-") == true) {
             let split = newValue.split("-");
-             let firstresult = parseFloat(split[0]) * -1 
-             let secondresult = firstresult - parseFloat(split[1]);
+             let firstresult = Number(split[0]) * -1 
+             let secondresult = firstresult - Number(split[1]);
              result = secondresult
         } else if (newValue.includes("+") == true) {
             let split = newValue.split("+");
