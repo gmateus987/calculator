@@ -1,4 +1,5 @@
 let inputNumber = document.getElementById('calculation');
+let previewResult = document.getElementById('operation-preview');
 let zero = document.getElementById('zero');
 let one = document.getElementById('one');
 let two = document.getElementById('two');
@@ -41,8 +42,7 @@ for (let i in numberArray) {
 // BOTÃO CLEAR
 function clearFunction() {
     inputNumber.value = "";
-    counterFP = 0;
-    counterSP = 0;
+    previewResult.value = ""
 };
 let clear = document.getElementById('clear');
 clear.addEventListener('click', clearFunction);
@@ -52,9 +52,11 @@ clear.addEventListener('click', clearFunction);
 // BOTÃO APAGAR 
 function eraseLetter() {
     let newValue = inputNumber.value;
+    let secondValue = previewResult.value;
 
     if (newValue.length > 0) {
         inputNumber.value = newValue.slice(0, -1);
+        previewResult.value = secondValue.slice(0, -1);
     }
 
 };
@@ -65,10 +67,10 @@ erase.addEventListener('click', eraseLetter);
 // FUNÇÃO NEGATIVO/POSITIVO
 function negativeNumber() {
     let currentValue = inputNumber.value;
-    let negative = "(-";
+    let negative = "-";
     let newValue = negative + currentValue;
     if (inputNumber.value.includes(negative) == true) {
-        inputNumber.value = currentValue.replace("(-", "");
+        inputNumber.value = currentValue.replace("-", "");
     } else {
         inputNumber.value = newValue;
     }
