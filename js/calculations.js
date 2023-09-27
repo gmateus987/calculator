@@ -6,6 +6,7 @@ function resultPreview() {
     alert("Funcionou")
 };
 
+let result = myInput.value; 
 
 function calculate() {
     let newValue = myInput.value;
@@ -13,11 +14,34 @@ function calculate() {
     newValue = newValue.replace("+", "+");
     newValue = newValue.replace("⨉", "*");
     newValue = newValue.replace("÷", "/");
-    newValue = newValue.replace("%", "/100");
+    newValue = newValue.replace(",", ".");
 
-    
-    let result =
+    if(newValue.includes("-") == true){
+        let split = newValue.split("-");
+        result = parseFloat(split[0]) - parseFloat(split[1]);
+    } else if (newValue.includes("+") == true) {
+        let split = newValue.split("+");
+        result = parseFloat(split[0]) + parseFloat(split[1]);
+    } else if (newValue.includes("*") == true) {
+        if (newValue.includes("%") == true) {
+            let split = newValue.split("%*");
+            let firstresult = parseFloat(split[0]) / 100;
+            let secondresult = firstresult * parseFloat(split[1]);
+            result = secondresult
+        } else {
+            let split = newValue.split("*");
+            result = parseFloat(split[0]) * parseFloat(split[1]);
+        };
+    } else if (newValue.includes("/") == true) {
+        let split = newValue.split("/");
+        result = parseFloat(split[0]) / parseFloat(split[1]);
+    };
+
+
     myInput.value = result;
+    myInput.value = myInput.value.replace(".", ",");
 };
+
+
 
 equal.addEventListener('click', calculate)
